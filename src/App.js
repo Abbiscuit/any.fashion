@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import Home from './pages/Home';
 
 const App = () => {
   return (
@@ -12,9 +13,3 @@ const App = () => {
 };
 
 export default App;
-
-const Home = () => (
-  <div>
-    <h1>Home</h1>
-  </div>
-);
