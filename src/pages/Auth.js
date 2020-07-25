@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import Header from '../components/Header';
 import { Link } from 'react-router-dom';
 
-const Auth = () => {
-  const isUserExist = true;
+const Auth = ({ currentUser }) => {
+  const isUserExist = currentUser;
 
   return (
     <div>
@@ -18,7 +18,8 @@ const Auth = () => {
         </Form>
         {isUserExist ? null : (
           <Text>
-            <LinkText href="#">利用規約、プライバシーポリシー</LinkText>に同意
+            <LinkText to="/terms">利用規約、プライバシーポリシー</LinkText>
+            に同意
           </Text>
         )}
       </Container>

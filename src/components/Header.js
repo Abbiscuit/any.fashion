@@ -8,10 +8,10 @@ const Header = ({ isSearch, isUserExist }) => {
     <React.Fragment>
       <Container>
         <Icon>=</Icon>
-        <Title>Any.Fashion</Title>
+        <Title to="/">Any.Fashion</Title>
         {!isUserExist ? (
           <Div>
-            <LinkText to="#">ログイン</LinkText>
+            <LinkText to="/login">ログイン</LinkText>
             <NotificationIcon>No</NotificationIcon>
           </Div>
         ) : null}
@@ -33,7 +33,7 @@ const Container = styled.header`
   margin-bottom: 8px;
 `;
 
-const Title = styled.h1`
+const Title = styled(Link)`
   color: #f2f2f2;
   font-size: 24px;
   font-family: 'Titillium Web', sans-serif;
