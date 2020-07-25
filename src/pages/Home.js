@@ -6,7 +6,7 @@ import ProductsList from '../components/ProductsList';
 const Home = () => {
   return (
     <div>
-      <Header />
+      <Header isSearch />
       <CampaignBanner />
       <ProductsList />
     </div>

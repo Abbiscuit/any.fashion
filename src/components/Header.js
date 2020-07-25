@@ -3,18 +3,20 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Search from './Search';
 
-const Header = () => {
+const Header = ({ isSearch, isUserExist }) => {
   return (
     <React.Fragment>
       <Container>
         <Icon>=</Icon>
         <Title>Any.Fashion</Title>
-        <Div>
-          <LinkText to="#">ログイン</LinkText>
-          <NotificationIcon>No</NotificationIcon>
-        </Div>
+        {!isUserExist ? (
+          <Div>
+            <LinkText to="#">ログイン</LinkText>
+            <NotificationIcon>No</NotificationIcon>
+          </Div>
+        ) : null}
       </Container>
-      <Search />
+      {isSearch ? <Search /> : null}
     </React.Fragment>
   );
 };
