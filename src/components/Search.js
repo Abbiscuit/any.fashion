@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Search = () => {
   return (
     <Div>
-      <Input type="text" />
+      <Input type="text" placeholder="検索" />
     </Div>
   );
 };
