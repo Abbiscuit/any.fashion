@@ -55,6 +55,7 @@ const Button = styled.button`
   font-size: 16px;
   color: #ffffff;
   height: 48px;
+  border-radius: 8px;
 `;
 
 const Text = styled.p`
