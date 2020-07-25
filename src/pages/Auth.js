@@ -2,18 +2,97 @@ import React from 'react';
 import styled from 'styled-components';
 import Header from '../components/Header';
 import { Link } from 'react-router-dom';
+import { auth, createUserProfileDocument } from '../firebase/init';
 
 const Auth = ({ currentUser }) => {
   const isUserExist = currentUser;
+
+  const [credentials, setCredentials] = React.useState({
+    displayName: '',
+    email: '',
+    password: '',
+  });
+
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setCredentials({ ...credentials, [name]: value });
+  };
+
+  const signup = async e => {
+    e.preventDefault();
+
+    const { displayName, email, password } = credentials;
+
+    try {
+      const { user } = await auth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
+
+      await createUserProfileDocument(user, { displayName });
+
+      setCredentials({
+        displayName: '',
+        email: '',
+        password: '',
+      });
+
+      console.log('Signup');
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const login = async e => {
+    e.preventDefault();
+
+    const { email, password } = credentials;
+
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+
+      setCredentials({
+        email: '',
+        password: '',
+      });
+
+      console.log('Login');
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <div>
       <Header isUserExist={isUserExist} />
       <Container>
-        <Form>
-          {isUserExist ? null : <Input type="text" placeholder="お名前" />}
-          <Input type="email" placeholder="メールアドレス" />
-          <Input type="password" placeholder="パスワード" />
+        <Form onSubmit={!isUserExist ? signup : login}>
+          {isUserExist ? null : (
+            <Input
+              type="text"
+              name="displayName"
+              placeholder="お名前"
+              value={credentials.displayName}
+              onChange={handleChange}
+              required
+            />
+          )}
+          <Input
+            type="email"
+            name="email"
+            placeholder="メールアドレス"
+            value={credentials.email}
+            onChange={handleChange}
+            required
+          />
+          <Input
+            type="password"
+            name="password"
+            placeholder="パスワード"
+            value={credentials.password}
+            onChange={handleChange}
+            required
+          />
           <Button>{isUserExist ? 'ログイン' : '次へ'}</Button>
         </Form>
         {isUserExist ? null : (

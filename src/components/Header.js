@@ -11,7 +11,7 @@ const Header = ({ isSearch, isUserExist }) => {
         <Title to="/">Any.Fashion</Title>
         {!isUserExist ? (
           <Div>
-            <LinkText to="/login">ログイン</LinkText>
+            <LinkText to="/auth">ログイン</LinkText>
             <NotificationIcon>No</NotificationIcon>
           </Div>
         ) : null}

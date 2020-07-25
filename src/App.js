@@ -18,7 +18,11 @@ const App = () => {
           }}
         />
 
-        <Route exact path="/login" render={props => <Auth />} />
+        <Route
+          exact
+          path="/auth"
+          render={props => <Auth currentUser={currentUser} />}
+        />
         <Route exact path="/terms" render={props => <TermsAndPolicy />} />
 
         <Route component={NotFound} />
