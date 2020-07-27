@@ -3,10 +3,10 @@ import Header from '../components/Header';
 import CampaignBanner from '../components/CampaignBanner';
 import ProductsList from '../components/ProductsList';
 
-const Home = () => {
+const Home = ({ currentUser }) => {
   return (
     <div>
-      <Header isSearch />
+      <Header isSearch isUserExist={currentUser} />
       <CampaignBanner />
       <ProductsList />
     </div>

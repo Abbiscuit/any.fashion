@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Search from './Search';
+import { auth } from '../firebase/init';
 
 const Header = ({ isSearch, isUserExist }) => {
   return (
@@ -9,12 +10,16 @@ const Header = ({ isSearch, isUserExist }) => {
       <Container>
         <Icon>=</Icon>
         <Title to="/">Any.Fashion</Title>
-        {!isUserExist ? (
-          <Div>
+
+        <Div>
+          {isUserExist ? (
+            <LogoutText onClick={() => auth.signOut()}>ログアウト</LogoutText>
+          ) : (
             <LinkText to="/auth">ログイン</LinkText>
-            <NotificationIcon>No</NotificationIcon>
-          </Div>
-        ) : null}
+          )}
+
+          <NotificationIcon>No</NotificationIcon>
+        </Div>
       </Container>
       {isSearch ? <Search /> : null}
     </React.Fragment>
@@ -55,6 +60,13 @@ const Div = styled.div`
 
 const LinkText = styled(Link)`
   display: inline-block;
+  color: #f2f2f2;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-right: 16px;
+`;
+
+const LogoutText = styled.p`
   color: #f2f2f2;
   font-size: 14px;
   line-height: 1.5;

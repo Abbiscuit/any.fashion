@@ -1,11 +1,27 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import Home from './pages/Home';
 import Auth from './pages/Auth';
 import TermsAndPolicy from './pages/TermsAndPolicy';
+import { auth } from './firebase/init';
+import Signin from './pages/Signin';
 
 const App = () => {
-  const currentUser = true;
+  const [currentUser, setCurrentUser] = React.useState(null);
+
+  React.useEffect(() => {
+    const unsubscribeFromAuth = auth.onAuthStateChanged(userAuth => {
+      if (userAuth) {
+        setCurrentUser(userAuth);
+      } else {
+        setCurrentUser(null);
+      }
+    });
+
+    return unsubscribeFromAuth;
+  }, []);
+
+  const params = { currentUser };
 
   return (
     <div>
@@ -13,15 +29,31 @@ const App = () => {
         <Route
           exact
           path="/"
-          render={props => {
-            return currentUser ? <Home /> : <Auth />;
-          }}
+          render={props => <Home {...props} {...params} />}
         />
 
         <Route
           exact
           path="/auth"
-          render={props => <Auth currentUser={currentUser} />}
+          render={props =>
+            currentUser ? (
+              <Redirect to="/" />
+            ) : (
+              <Auth currentUser={currentUser} />
+            )
+          }
+        />
+
+        <Route
+          exact
+          path="/signin"
+          render={props =>
+            currentUser ? (
+              <Redirect to="/" />
+            ) : (
+              <Signin currentUser={currentUser} />
+            )
+          }
         />
         <Route exact path="/terms" render={props => <TermsAndPolicy />} />
 
